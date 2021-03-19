@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { EmpleadoService } from 'src/app/services/empleado.service';
 
 @Component({
@@ -11,8 +12,12 @@ import { EmpleadoService } from 'src/app/services/empleado.service';
 export class CreateEmpleadoComponent implements OnInit {
   createEmpleado: FormGroup;
   submitted = false;
+  loading = false;
 
-  constructor(private fb: FormBuilder, private _empleadoService: EmpleadoService, private _router: Router) { 
+  constructor(private fb: FormBuilder, 
+              private _empleadoService: EmpleadoService, 
+              private _router: Router, 
+              private toastr: ToastrService) { 
     this.createEmpleado = this.fb.group({
       nombres: ['',Validators.required],
       apellidos: ['',Validators.required],
@@ -37,11 +42,20 @@ export class CreateEmpleadoComponent implements OnInit {
       fechaCreacion: new Date(),
       fechaActualizacion: new Date()
     }
+    this.loading = true;
     this._empleadoService.agregarEmpleado(empleado).then(() => {
-      console.log('Empleado registrado con éxito');
+      // console.log('Empleado registrado con éxito');
+      this.toastr.success('El Empleado fué Registrado con Éxito!!', 'Empleado Registrado', {
+        positionClass: 'toast-bottom-right'
+      });
+      this.loading = false;
       this._router.navigate(['/list-empleados']);
     }).catch(error => {
-      console.log(error);
+      // console.log(error);
+      this.toastr.warning(error, 'Empleado No Registrado', {
+        positionClass: 'toast-bottom-right'
+      });
+      this.loading = false;
     })
     // console.log(this.createEmpleado);
     // console.log(empleado);

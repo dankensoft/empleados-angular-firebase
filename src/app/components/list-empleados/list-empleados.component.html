@@ -3,7 +3,8 @@
         <div class="card-body">
             <span class="h3">Listado de Empleados</span>
             <button class="btn btn-outline-success float-right" routerLink="/create-empleado">Agregar</button>
-            <table class="table table-striped mt-5">
+            <h5 style="margin-top: 30px;" *ngIf="empleados.length == 0">No hay datos para mostrar</h5>
+            <table *ngIf="empleados.length >  0" class="table table-striped mt-5">
                 <thead>
                   <tr>
                     <th>Nombres</th>
@@ -14,34 +15,14 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>Daniel Rodrigo</td>
-                    <td>Castillo Alvarez</td>
-                    <td>1234567892536</td>
-                    <td>20350.00</td>
+                  <tr *ngFor="let empleado of empleados">
+                    <td>{{ empleado.nombres}}</td>
+                    <td>{{ empleado.apellidos }}</td>
+                    <td>{{ empleado.documento }}</td>
+                    <td>{{ empleado.salario | currency }}</td>
                     <td>
                       <i class="fas fa-user-edit fa-lg text-info mr-2" routerLink="/create-empleado"></i>
-                      <i class="fas fa-user-times fa-lg text-danger"></i>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Danniels Kennet</td>
-                    <td>Castillo Magaña</td>
-                    <td>1963079962001</td>
-                    <td>25950.00</td>
-                    <td>
-                      <i class="fas fa-user-edit fa-lg text-info mr-2"></i>
-                      <i class="fas fa-user-times fa-lg text-danger"></i>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Wendy Cecilia</td>
-                    <td>Alvarez Estrada</td>
-                    <td>2356897845121</td>
-                    <td>23650.00</td>
-                    <td>
-                      <i class="fas fa-user-edit fa-lg text-info mr-2"></i>
-                      <i class="fas fa-user-times fa-lg text-danger"></i>
+                      <i (click)="deleteEmpleado(empleado.id)" class="fas fa-user-times fa-lg text-danger"></i>
                     </td>
                   </tr>
                 </tbody>
