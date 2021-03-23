@@ -6,27 +6,27 @@
             <h5 style="margin-top: 30px;" *ngIf="empleados.length == 0">No hay datos para mostrar</h5>
             <table *ngIf="empleados.length >  0" class="table table-striped mt-5">
                 <thead>
-                  <tr>
-                    <th>Nombres</th>
-                    <th>Apellidos</th>
-                    <th>Documento</th>
-                    <th>Salario</th>
-                    <th></th>
-                  </tr>
+                    <tr>
+                        <th>Nombres</th>
+                        <th>Apellidos</th>
+                        <th>Documento</th>
+                        <th>Salario</th>
+                        <th></th>
+                    </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let empleado of empleados">
-                    <td>{{ empleado.nombres}}</td>
-                    <td>{{ empleado.apellidos }}</td>
-                    <td>{{ empleado.documento }}</td>
-                    <td>{{ empleado.salario | currency }}</td>
-                    <td>
-                      <i class="fas fa-user-edit fa-lg text-info mr-2" routerLink="/create-empleado"></i>
-                      <i (click)="deleteEmpleado(empleado.id)" class="fas fa-user-times fa-lg text-danger"></i>
-                    </td>
-                  </tr>
+                    <tr *ngFor="let empleado of empleados">
+                        <td>{{ empleado.nombres}}</td>
+                        <td>{{ empleado.apellidos }}</td>
+                        <td>{{ empleado.documento }}</td>
+                        <td>{{ empleado.salario | currency }}</td>
+                        <td>
+                            <i class="fas fa-user-edit fa-lg text-info mr-2" [routerLink]="['/edit-empleado/', empleado.id]"></i>
+                            <i (click)="deleteEmpleado(empleado.id)" class="fas fa-user-times fa-lg text-danger"></i>
+                        </td>
+                    </tr>
                 </tbody>
-              </table>
+            </table>
         </div>
     </div>
 </div>
