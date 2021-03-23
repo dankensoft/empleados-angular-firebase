@@ -23,6 +23,7 @@ export class ListEmpleadosComponent implements OnInit {
   getEmpleados() {
     this._empleadoService.getEmpleados().subscribe(data => {
       // console.log(data);
+      this.empleados = [];
       data.forEach((element:any) => {
         // console.log(element.payload.doc.id);
         // console.log(element.payload.doc.data());
